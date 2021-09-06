@@ -127,3 +127,60 @@ def game_hash
 end
 
 # Write code here
+def player_search(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players 
+  all_players.find {|player| player[:player_name] == name}
+end
+
+def team_search(t_name)
+  team_array  = [game_hash[:home],game_hash[:away]]
+  team_array.find {|team| team[:team_name] == t_name}
+end
+
+def num_points_scored(name)
+    searched_player = player_search(name)
+    searched_player[:points]
+end
+
+def shoe_size(name)
+    searched_player = player_search(name)
+    searched_player[:shoe]
+end
+
+def team_colors(t_name)
+  searched_team = team_search(t_name)
+  searched_team[:colors]
+end
+
+def team_names()
+  team_name_array = [game_hash[:home][:team_name],game_hash[:away][:team_name]]
+end
+
+def player_numbers(t_name)
+  searched_team = team_search(t_name)
+  numbers_array = []
+  searched_team[:players].each do |player|
+    numbers_array.push(player[:number])
+  end
+  numbers_array
+end 
+
+def player_stats(player_name)
+  searched_player = player_search(player_name)
+  searched_player
+end
+
+def big_shoe_rebounds()
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players 
+  all_shoes = []
+  all_players.each do |player|
+    all_shoes.push(player[:shoe])
+  end
+  largest_size = all_shoes.max()
+  selected_player = all_players.find {|player| player[:shoe] == largest_size}
+  selected_player[:rebounds]
+end
